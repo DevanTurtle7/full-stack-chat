@@ -1,2 +1,2 @@
 # fullstack-chat
-A fullstack messaging app built with React, SQL, Flask and Python.
+A full stack messaging app built with React, Flask and PostgreSQL
