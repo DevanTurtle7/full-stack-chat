@@ -5,7 +5,7 @@ class MessageInput extends Component {
     render() {
         return (
             <Col className="px-0">
-                <Input className="message-input"/>
+                <Input className="message-input" placeholder="Text message"/>
             </Col>
         )
     }

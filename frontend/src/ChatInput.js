@@ -7,7 +7,7 @@ class ChatInput extends Component {
     render() {
         return (
             <div className="chat-input position-fixed end-0 bottom-0">
-                <Row className="mx-2 mb-2">
+                <Row className="m-2 mt-4">
                     <MessageInput />
                     <SendButton />
                 </Row>

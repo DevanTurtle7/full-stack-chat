@@ -55,7 +55,7 @@ class Chat extends Component {
         return (
             <Col sm={8} className="chat-window">
                 {messages}
-                <ChatInput />
+                <ChatInput/>
             </Col>
         )
     }
