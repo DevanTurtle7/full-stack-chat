@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.chatBubble {
+  width: fit-content;
+  max-width: 60%;
+  height: fit-content;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 15px;
+  margin-top: 2px;
+}
+
+.chatBu
+
+.chatBubble p {
+  margin-bottom: 0px;
+}
+
+.chatBubble-sent {
+  text-align: right;
+  background-color: #29b6f6;
+  color: white;
+}
+
+.chatBubble-received {
+  text-align: left;
+  background-color: #eceff1;
+  color: black
+}
