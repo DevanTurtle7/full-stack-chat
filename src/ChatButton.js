@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { Col } from 'reactstrap';
-import Bubble from './Bubble';
 
 class ChatButton extends Component {
     render() {

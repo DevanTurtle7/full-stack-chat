@@ -14,7 +14,7 @@ code {
 
 * {
   -ms-overflow-style: none !important;
-  }
+}
 
 .chat-bubble {
   width: fit-content;
@@ -34,7 +34,6 @@ code {
 
 .chat-bubble-sent {
   text-align: right;
-  background-color: #29b6f6;
   color: white;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -42,7 +41,6 @@ code {
 
 .chat-bubble-received {
   text-align: left;
-  background-color: #eceff1;
   color: black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -75,4 +73,12 @@ code {
 .chat-window {
   background-color: white;
   padding-bottom: 15px;
+}
+
+.chat-input {
+  width: inherit;
+}
+
+.col-fit-width {
+  width: fit-content
 }
