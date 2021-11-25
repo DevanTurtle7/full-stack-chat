@@ -1,15 +1,17 @@
 import './App.css';
 import Chat from './Chat';
 import Sidebar from './Sidebar';
-import { Row } from 'reactstrap';
+import { Row, Container } from 'reactstrap';
 
 function App() {
   return (
     <div className="App">
-      <Row>
-        <Sidebar />
-        <Chat />
-      </Row>
+      <Container fluid>
+        <Row className="row-height">
+          <Sidebar />
+          <Chat />
+        </Row>
+      </Container>
     </div>
   );
 }

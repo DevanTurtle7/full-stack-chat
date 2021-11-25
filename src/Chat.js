@@ -15,6 +15,20 @@ class Chat extends Component {
             {sender: 2, message: "Hey whats up. This is a long message from the other user"},
             {sender: 2, message: "This is another random message from the other person"},
             {sender: 1, message: "Okay bye"},
+            {sender: 1, message: "hello"},
+            {sender: 1, message: "Lorem ipsum..."},
+            {sender: 1, message: "Blah blah blah"},
+            {sender: 1, message: "This is a long message. This is a test to see what a long message looks like. Lets try it out."},
+            {sender: 2, message: "Hey whats up. This is a long message from the other user"},
+            {sender: 2, message: "This is another random message from the other person"},
+            {sender: 1, message: "Okay bye"},
+            {sender: 1, message: "hello"},
+            {sender: 1, message: "Lorem ipsum..."},
+            {sender: 1, message: "Blah blah blah"},
+            {sender: 1, message: "This is a long message. This is a test to see what a long message looks like. Lets try it out."},
+            {sender: 2, message: "Hey whats up. This is a long message from the other user"},
+            {sender: 2, message: "This is another random message from the other person"},
+            {sender: 1, message: "Okay bye"},
         ]
         
         this.userId = 1;
@@ -38,7 +52,7 @@ class Chat extends Component {
         }
 
         return (
-            <Col className="mx-1">{messages}</Col>
+            <Col className="mx-1 chatWindow">{messages}</Col>
         )
     }
 }

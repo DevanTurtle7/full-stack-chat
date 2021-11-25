@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+* {
+  -ms-overflow-style: none !important;
+  }
+
 .chatBubble {
   width: fit-content;
   max-width: 70%;
@@ -53,4 +57,13 @@ code {
 .chatBubble-last {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+
+.row-height {
+  height: 100vh;
+}
+
+.chatWindow {
+  height: 100%;
+  overflow-y: scroll;
 }
