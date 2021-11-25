@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Col, Input, Row } from 'reactstrap';
+import { Row } from 'reactstrap';
 import SendButton from './SendButton';
 import MessageInput from './MessageInput';
 
