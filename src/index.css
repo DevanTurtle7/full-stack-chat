@@ -63,11 +63,16 @@ code {
   height: 100vh;
 }
 
-.chat-window {
+.chat-window, .sidebar {
   height: 100%;
   overflow-y: scroll;
 }
 
 .sidebar {
   background-color: #eceff1;
+}
+
+.chat-window {
+  background-color: white;
+  padding-bottom: 15px;
 }
