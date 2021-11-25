@@ -10,8 +10,11 @@ class Chat extends Component {
         this.messages = [
             {sender: 1, message: "hello"},
             {sender: 1, message: "Lorem ipsum..."},
+            {sender: 1, message: "Blah blah blah"},
             {sender: 1, message: "This is a long message. This is a test to see what a long message looks like. Lets try it out."},
-            {sender: 2, message: "Hey whats up. This is a long message from the other user"}
+            {sender: 2, message: "Hey whats up. This is a long message from the other user"},
+            {sender: 2, message: "This is another random message from the other person"},
+            {sender: 1, message: "Okay buy"},
         ]
         
         this.userId = 1;
@@ -19,13 +22,18 @@ class Chat extends Component {
 
     render() {
         var messages = []
+        var numMessages = this.messages.length
 
-        for (var i in this.messages) {
+        for (var i = 0; i < numMessages; i++) {
             let message = this.messages[i]
+            let sender = message.sender
 
             messages.push(<Bubble
-                sent={message.sender === this.userId}
+                sent={sender === this.userId}
                 text={message.message}
+                first={i === 0 || this.messages[i-1].sender !== sender}
+                last={i === (numMessages - 1) || this.messages[i+1].sender !== sender}
+                key={i}
             />)
         }
 

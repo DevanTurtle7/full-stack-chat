@@ -20,7 +20,7 @@ code {
   padding-right: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
-  border-radius: 15px;
+  border-radius: 5px;
   margin-top: 2px;
 }
 
@@ -32,10 +32,24 @@ code {
   text-align: right;
   background-color: #29b6f6;
   color: white;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
 .chatBubble-received {
   text-align: left;
   background-color: #eceff1;
-  color: black
+  color: black;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.chatBubble-first {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.chatBubble-last {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }

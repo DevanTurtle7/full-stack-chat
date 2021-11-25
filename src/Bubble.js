@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import {
     Col,
-    Container
 } from 'reactstrap';
 
 class Bubble extends Component {
@@ -9,13 +8,15 @@ class Bubble extends Component {
         super(props);
 
         this.sentClassName = this.props.sent ? "chatBubble-sent" : "chatBubble-received";
+        this.firstClassName = this.props.first ? "chatBubble-first" : ""
+        this.lastClassName = this.props.last ? "chatBubble-last" : ""
         this.justification = this.props.sent ? "justify-content-end" : "justify-content-start"
     }
 
     render() {
         return (
             <Col className={"d-flex " + this.justification}>
-                <div className={"chatBubble " + this.sentClassName}>
+                <div className={"chatBubble " + this.sentClassName + " " + this.firstClassName + " " + this.lastClassName}>
                     <p>{this.props.text}</p>
                 </div>
             </Col>
