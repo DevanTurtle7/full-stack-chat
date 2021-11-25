@@ -14,7 +14,7 @@ class Chat extends Component {
             {sender: 1, message: "This is a long message. This is a test to see what a long message looks like. Lets try it out."},
             {sender: 2, message: "Hey whats up. This is a long message from the other user"},
             {sender: 2, message: "This is another random message from the other person"},
-            {sender: 1, message: "Okay buy"},
+            {sender: 1, message: "Okay bye"},
         ]
         
         this.userId = 1;
