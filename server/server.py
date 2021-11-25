@@ -1,7 +1,12 @@
 from flask import Flask
 from flask_restful import Resource, Api
-from server.api.db_utils import *
-from server.api.test_api import TestApi
+
+if __name__ == '__main__':
+    from api.db_utils import *
+    from api.test_api import TestApi
+else:
+    from server.api.db_utils import *
+    from server.api.test_api import TestApi
 
 app = Flask(__name__) #create Flask instance
 
