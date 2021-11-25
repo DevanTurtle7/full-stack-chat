@@ -52,7 +52,7 @@ class Chat extends Component {
         }
 
         return (
-            <Col className="mx-1 chatWindow">{messages}</Col>
+            <Col sm={8} className="chat-window">{messages}</Col>
         )
     }
 }

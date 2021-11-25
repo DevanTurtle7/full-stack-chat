@@ -7,16 +7,16 @@ class Bubble extends Component {
     constructor(props) {
         super(props);
 
-        this.sentClassName = this.props.sent ? "chatBubble-sent" : "chatBubble-received";
-        this.firstClassName = this.props.first ? "chatBubble-first" : ""
-        this.lastClassName = this.props.last ? "chatBubble-last" : ""
+        this.sentClassName = this.props.sent ? "chat-bubble-sent" : "chat-bubble-received";
+        this.firstClassName = this.props.first ? "chat-bubble-first" : ""
+        this.lastClassName = this.props.last ? "chat-bubble-last" : ""
         this.justification = this.props.sent ? "justify-content-end" : "justify-content-start"
     }
 
     render() {
         return (
             <Col className={"d-flex " + this.justification}>
-                <div className={"chatBubble " + this.sentClassName + " " + this.firstClassName + " " + this.lastClassName}>
+                <div className={"chat-bubble " + this.sentClassName + " " + this.firstClassName + " " + this.lastClassName}>
                     <p>{this.props.text}</p>
                 </div>
             </Col>
