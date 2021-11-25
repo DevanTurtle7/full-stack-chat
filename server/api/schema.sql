@@ -30,24 +30,24 @@ CREATE TABLE group_memberships(
 CREATE TABLE direct_messages(
     id SERIAL PRIMARY KEY,
     sender_id INTEGER NOT NULL,
-    reciever_id INTEGER NOT NULL,
+    receiver_id INTEGER NOT NULL,
     message_text TEXT NOT NULL,
     time_sent TIMESTAMP DEFAULT NOW(),
     read BOOLEAN DEFAULT FALSE,
 
     FOREIGN KEY (sender_id) REFERENCES users(id),
-    FOREIGN KEY (reciever_id) REFERENCES users(id)
+    FOREIGN KEY (receiver_id) REFERENCES users(id)
 );
 
 CREATE TABLE group_messages(
     id SERIAL PRIMARY KEY,
     sender_id INTEGER NOT NULL,
-    reciever_id INTEGER NOT NULL,
+    receiver_id INTEGER NOT NULL,
     message_text TEXT NOT NULL,
     time_sent TIMESTAMP DEFAULT NOW(),
     read BOOLEAN DEFAULT FALSE,
 
     FOREIGN KEY (sender_id) REFERENCES users(id),
-    FOREIGN KEY (reciever_id) REFERENCES users(id)
+    FOREIGN KEY (receiver_id) REFERENCES users(id)
 );
 
