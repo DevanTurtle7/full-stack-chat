@@ -4,14 +4,16 @@ from flask_restful import Resource, Api
 if __name__ == '__main__':
     from utils.db_utils import *
     from api.chats import Chats
+    from api.direct_messages import DirectMessages
 else:
     from server.utils.db_utils import *
-    from server.api.chats import Chats
+    from server.api.direct_messages import DirectMessages
 
 app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(Chats,'/chats')
+api.add_resource(DirectMessages,'/direct_messages')
 
 def rebuild_tables():
     exec_sql_file('server/schema.sql')
