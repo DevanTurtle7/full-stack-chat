@@ -14,7 +14,7 @@ except:
 
 class Chats(Resource):
     def __init__(self):
-        self.__columns = ["id", "name", "last_message", "last_sent"]
+        self.__columns = ["type", "id", "name", "last_message", "last_sent"]
 
     def get(self):
         parser = reqparse.RequestParser()
@@ -25,7 +25,7 @@ class Chats(Resource):
 
         if user_id != None:
             sql_string = """
-                SELECT DISTINCT ON (name) users.id, name, message_text, time_sent
+                SELECT DISTINCT ON (name) 'direct_message' as type, users.id, name, message_text, time_sent
                 FROM direct_messages INNER JOIN users ON
                     (CASE WHEN receiver_id = %(user_id)s THEN sender_id
                     WHEN sender_id = %(user_id)s THEN receiver_id END)
@@ -35,7 +35,7 @@ class Chats(Resource):
 
                 UNION
 
-                SELECT DISTINCT ON (name) group_id, name, message_text, time_sent
+                SELECT DISTINCT ON (name) 'group_chat' as type, group_id, name, message_text, time_sent
                 FROM group_memberships  INNER JOIN group_chats
                 ON group_id = group_chats.id
                 INNER JOIN group_messages ON group_id = group_chat_id
