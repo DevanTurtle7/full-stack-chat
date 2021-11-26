@@ -7,6 +7,7 @@ if __name__ == '__main__':
     from api.direct_messages import DirectMessages
 else:
     from server.utils.db_utils import *
+    from server.api.chats import Chats
     from server.api.direct_messages import DirectMessages
 
 app = Flask(__name__)
