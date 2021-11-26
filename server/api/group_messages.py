@@ -36,7 +36,7 @@ class GroupMessages(Resource):
             INNER JOIN group_memberships ON group_memberships.group_chat_id = group_chats.id
             INNER JOIN users ON group_messages.sender_id = users.id
             WHERE group_memberships.user_id = %(user_id)s AND group_messages.group_chat_id = %(group_chat_id)s
-            ORDER BY time_sent DESC;
+            ORDER BY time_sent DESC
             """
 
             args = {'user_id': user_id, 'group_chat_id': group_chat_id}
