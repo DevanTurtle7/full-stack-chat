@@ -14,7 +14,7 @@ except:
 
 class DirectMessages(Resource):
     def __init__(self):
-        self.__columns = ["id", "sender_id", "receiver_id", "message_text", "time_sent", "read"]
+        self.__columns = ["sender_id", "receiver_id", "other_name", "other_username", "message_text", "time_sent", "read"]
 
     def get(self):
         parser = reqparse.RequestParser()
@@ -29,8 +29,14 @@ class DirectMessages(Resource):
 
         if user_id != None and receiver_id != None:
             sql_string = """
-            SELECT * FROM direct_messages WHERE 1 in (sender_id, receiver_id) and 2 in
-            (sender_id, receiver_id) ORDER BY time_sent DESC
+            SELECT sender_id, receiver_id, users.name as other_name, users.username as other_username,
+            message_text, time_sent, read
+            FROM direct_messages INNER JOIN users ON
+                (CASE WHEN %(user_id)s = sender_id THEN receiver_id
+                WHEN %(user_id)s = receiver_id THEN sender_id END)
+            = users.id
+            WHERE %(user_id)s in (sender_id, receiver_id) and %(receiver_id)s in (sender_id, receiver_id) 
+            ORDER BY time_sent DESC
             """
             args = {'user_id': user_id, 'receiver_id': receiver_id}
 

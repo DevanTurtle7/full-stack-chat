@@ -77,11 +77,11 @@ class TestApi(unittest.TestCase):
     
     def test_get_direct_messages_user_1_user_2(self):
         expected_num = 5
-        expected_message_1 = {'id': 6, 'sender_id': 2, 'receiver_id': 1, 'message_text': 'ya same', 'time_sent': '1923-10-04T00:00:01', 'read': False}
-        expected_message_2 = {'id': 4, 'sender_id': 1, 'receiver_id': 2, 'message_text': 'Just testing out this app', 'time_sent': '1923-09-03T00:00:01', 'read': False}
-        expected_message_3 = {'id': 3, 'sender_id': 1, 'receiver_id': 2, 'message_text': 'Nothing much', 'time_sent': '1922-10-04T00:00:01', 'read': False}
-        expected_message_4 = {'id': 2, 'sender_id': 2, 'receiver_id': 1, 'message_text': 'Oh hey, whats up?', 'time_sent': '1922-10-03T00:00:03', 'read': False}
-        expected_message_5 = {'id': 1, 'sender_id': 1, 'receiver_id': 2, 'message_text': 'This is my first message', 'time_sent': '1922-10-03T00:00:01', 'read': False}
+        expected_message_1 = {'sender_id': 2, 'receiver_id': 1, 'other_name': 'Bob', 'other_username': 'bob27', 'message_text': 'ya same', 'time_sent': '1923-10-04T00:00:01', 'read': False}
+        expected_message_2 = {'sender_id': 1, 'receiver_id': 2, 'other_name': 'Bob', 'other_username': 'bob27', 'message_text': 'Just testing out this app', 'time_sent': '1923-09-03T00:00:01', 'read': False}
+        expected_message_3 = {'sender_id': 1, 'receiver_id': 2, 'other_name': 'Bob', 'other_username': 'bob27', 'message_text': 'Nothing much', 'time_sent': '1922-10-04T00:00:01', 'read': False}
+        expected_message_4 = {'sender_id': 2, 'receiver_id': 1, 'other_name': 'Bob', 'other_username': 'bob27', 'message_text': 'Oh hey, whats up?', 'time_sent': '1922-10-03T00:00:03', 'read': False}
+        expected_message_5 = {'sender_id': 1, 'receiver_id': 2, 'other_name': 'Bob', 'other_username': 'bob27', 'message_text': 'This is my first message', 'time_sent': '1922-10-03T00:00:01', 'read': False}
 
         messages = get_rest_call(self, API_URL + "/direct_messages", params={'user_id': 1, 'receiver_id': 2})
 
@@ -94,8 +94,8 @@ class TestApi(unittest.TestCase):
 
     def test_get_direct_messages_user_1_user_2_limit(self):
         expected_num = 2
-        expected_message_1 = {'id': 6, 'sender_id': 2, 'receiver_id': 1, 'message_text': 'ya same', 'time_sent': '1923-10-04T00:00:01', 'read': False}
-        expected_message_2 = {'id': 4, 'sender_id': 1, 'receiver_id': 2, 'message_text': 'Just testing out this app', 'time_sent': '1923-09-03T00:00:01', 'read': False}
+        expected_message_1 = {'sender_id': 2, 'receiver_id': 1, 'other_name': 'Bob', 'other_username': 'bob27', 'message_text': 'ya same', 'time_sent': '1923-10-04T00:00:01', 'read': False}
+        expected_message_2 = {'sender_id': 1, 'receiver_id': 2, 'other_name': 'Bob', 'other_username': 'bob27', 'message_text': 'Just testing out this app', 'time_sent': '1923-09-03T00:00:01', 'read': False}
 
         messages = get_rest_call(self, API_URL + "/direct_messages", params={'user_id': 1, 'receiver_id': 2, 'limit': 2})
 
