@@ -1,5 +1,5 @@
 import unittest
-from server.api.db_utils import *
+from server.utils.db_utils import *
 from tests.test_utils import *
 
 class TestPostgreSQL(unittest.TestCase):

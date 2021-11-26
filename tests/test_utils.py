@@ -1,5 +1,5 @@
 import requests
-from server.api.db_utils import *
+from server.utils.db_utils import *
 
 def insert_test_data():
     exec_sql_file('tests/test_data.sql')
