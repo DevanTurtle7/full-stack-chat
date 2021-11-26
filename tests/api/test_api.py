@@ -14,3 +14,10 @@ class TestApi(unittest.TestCase):
     def setUp(self):
         rebuild_tables()
         insert_test_data()
+    
+    def test_get_all_messages(self):
+        expected_length = 26
+
+        actual = get_rest_call(self, API_URL + "/messages")
+
+        self.assertEqual(expected_length, len(actual))

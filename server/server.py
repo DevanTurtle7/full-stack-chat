@@ -3,16 +3,15 @@ from flask_restful import Resource, Api
 
 if __name__ == '__main__':
     from api.db_utils import *
-    from api.test_api import TestApi
+    from api.messages import Messages
 else:
     from server.api.db_utils import *
-    from server.api.test_api import TestApi
+    from server.api.messages import Messages
 
-app = Flask(__name__) #create Flask instance
+app = Flask(__name__)
+api = Api(app)
 
-api = Api(app) #api router
-
-api.add_resource(TestApi,'/api')
+api.add_resource(Messages,'/messages')
 
 def rebuild_tables():
     exec_sql_file('server/api/schema.sql')
