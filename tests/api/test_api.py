@@ -91,3 +91,14 @@ class TestApi(unittest.TestCase):
         self.assertEqual(messages[2], expected_message_3)
         self.assertEqual(messages[3], expected_message_4)
         self.assertEqual(messages[4], expected_message_5)
+
+    def test_get_direct_messages_user_1_user_2_limit(self):
+        expected_num = 2
+        expected_message_1 = {'id': 6, 'sender_id': 2, 'receiver_id': 1, 'message_text': 'ya same', 'time_sent': '1923-10-04T00:00:01', 'read': False}
+        expected_message_2 = {'id': 4, 'sender_id': 1, 'receiver_id': 2, 'message_text': 'Just testing out this app', 'time_sent': '1923-09-03T00:00:01', 'read': False}
+
+        messages = get_rest_call(self, API_URL + "/direct_messages", params={'user_id': 1, 'receiver_id': 2, 'limit': 2})
+
+        self.assertEqual(expected_num, len(messages))
+        self.assertEqual(messages[0], expected_message_1)
+        self.assertEqual(messages[1], expected_message_2)
