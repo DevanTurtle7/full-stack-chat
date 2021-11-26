@@ -14,7 +14,7 @@ except:
 
 class Chats(Resource):
     def __init__(self):
-        self.__columns = ["name", "last_message", "last_sent"]
+        self.__columns = ["id", "name", "last_message", "last_sent"]
 
     def get(self):
         parser = reqparse.RequestParser()
@@ -25,19 +25,29 @@ class Chats(Resource):
 
         if user_id != None:
             sql_string = """
-                SELECT DISTINCT ON (username) username, message_text, time_sent FROM direct_messages
-                INNER JOIN users ON receiver_id = users.id WHERE sender_id = %(user_id)s OR
-                receiver_id = %(user_id)s GROUP BY username, message_text, time_sent
+                SELECT DISTINCT ON (name) users.id, name, message_text, time_sent
+                FROM direct_messages INNER JOIN users ON
+                    (CASE WHEN receiver_id = %(user_id)s THEN sender_id
+                    WHEN sender_id = %(user_id)s THEN receiver_id END)
+                = users.id
+                WHERE receiver_id = %(user_id)s OR sender_id = %(user_id)s
+                GROUP BY users.id, name, message_text, time_sent
+
                 UNION
-                SELECT DISTINCT ON(name) name, message_text, time_sent FROM group_memberships INNER
-                JOIN group_chats ON group_chats.id = group_id INNER JOIN group_messages ON
-                group_chat_id = group_id WHERE user_id = %(user_id)s GROUP BY name, message_text, time_sent
-                ORDER BY time_sent DESC
+
+                SELECT DISTINCT ON (name) group_id, name, message_text, time_sent
+                FROM group_memberships  INNER JOIN group_chats
+                ON group_id = group_chats.id
+                INNER JOIN group_messages ON group_id = group_chat_id
+                WHERE user_id = %(user_id)s
+                GROUP BY group_id, name, message_text, time_sent
+                ORDER BY name, time_sent DESC;
             """
 
             args = {'user_id': user_id}
 
             sql_data = exec_get_all(sql_string, args)
+            print(sql_data)
             result = jsonify_sql(sql_data, self.__columns)
             print(result)
 

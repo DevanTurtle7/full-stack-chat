@@ -10,7 +10,7 @@ INSERT INTO direct_messages(sender_id, receiver_id, message_text, time_sent) VAL
     (2, 1, 'Oh hey, whats up?', (TO_TIMESTAMP('1922-10-03 00:00:03', 'YYYY-MM-DD HH24:MI:SS'))),
     (1, 2, 'Nothing much', (TO_TIMESTAMP('1922-10-04 00:00:01', 'YYYY-MM-DD HH24:MI:SS'))),
     (1, 2, 'Just testing out this app', (TO_TIMESTAMP('1923-09-03 00:00:01', 'YYYY-MM-DD HH24:MI:SS'))),
-    (1, 2, 'hbu?', (TO_TIMESTAMP('1923-10-03 00:00:01', 'YYYY-MM-DD HH24:MI:SS'))),
+    (1, 3, 'yoyoyoy', (TO_TIMESTAMP('1923-10-03 00:00:01', 'YYYY-MM-DD HH24:MI:SS'))),
     (2, 1, 'ya same', (TO_TIMESTAMP('1923-10-04 00:00:01', 'YYYY-MM-DD HH24:MI:SS'))),
     (3, 1, 'hello', (TO_TIMESTAMP('1921-10-03 00:00:01', 'YYYY-MM-DD HH24:MI:SS'))),
     (2, 3, 'whats up?', (TO_TIMESTAMP('1920-10-03 00:00:01', 'YYYY-MM-DD HH24:MI:SS'))),
