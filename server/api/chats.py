@@ -47,6 +47,7 @@ class Chats(Resource):
             args = {'user_id': user_id}
 
             sql_data = exec_get_all(sql_string, args)
+            print(sql_data)
             result = jsonify_sql(sql_data, self.__columns)
             print(result)
 

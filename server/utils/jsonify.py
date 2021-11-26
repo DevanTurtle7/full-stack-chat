@@ -18,8 +18,6 @@ def jsonify_sql(data, columns):
 
     if len(data) == 0: # Check if there is no data
         return [] # Return an empty list
-    elif len(data) == 1: # Check if there is 1 object
-        return dict(data) # Return an simply parsed json object
     else:
         for object in data:
             current = dict() # Create a hashmap for the current object to represent a json object

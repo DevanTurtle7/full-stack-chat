@@ -60,6 +60,15 @@ class TestApi(unittest.TestCase):
         self.assertEqual(chats[2], expected_chat_3)
         self.assertEqual(chats[3], expected_chat_4)
 
+    def test_get_chats_user_4(self):
+        expected_num = 1
+        expected_chat = {'id': 2, 'name': 'ANOTHER CHAT', 'last_message': 'helloooo', 'last_sent': '2020-10-03T00:00:01'}
+
+        chats = get_rest_call(self, API_URL + "/chats", params={'user_id': 4})
+
+        self.assertEqual(expected_num, len(chats))
+        self.assertEqual(chats[0], expected_chat)
+
     def test_get_chats_no_id(self):
         expected = {"status": 400, "error": "Error, no user id provided"}
         actual = get_rest_call(self, API_URL + "/chats")
