@@ -22,7 +22,7 @@ INSERT INTO group_chats(name) VALUES
     ('ANOTHER CHAT')
 ;
 
-INSERT INTO group_memberships(group_id, user_id) VALUES
+INSERT INTO group_memberships(group_chat_id, user_id) VALUES
     (1, 1),
     (1, 2),
     (1, 3),

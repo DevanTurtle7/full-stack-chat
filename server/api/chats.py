@@ -35,12 +35,13 @@ class Chats(Resource):
 
                 UNION
 
-                SELECT DISTINCT ON (name) 'group_chat' as type, group_id, name, message_text, time_sent
-                FROM group_memberships  INNER JOIN group_chats
-                ON group_id = group_chats.id
-                INNER JOIN group_messages ON group_id = group_chat_id
+                SELECT DISTINCT ON (name) 'group_chat' as type, group_memberships.group_chat_id, name,
+                message_text, time_sent
+                FROM group_memberships INNER JOIN group_chats
+                ON group_memberships.group_chat_id = group_chats.id
+                INNER JOIN group_messages ON group_memberships.group_chat_id = group_messages.group_chat_id
                 WHERE user_id = %(user_id)s
-                GROUP BY group_id, name, message_text, time_sent
+                GROUP BY group_memberships.group_chat_id, name, message_text, time_sent
                 ORDER BY time_sent DESC;
             """
 

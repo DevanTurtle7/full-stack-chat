@@ -20,10 +20,10 @@ CREATE TABLE group_chats(
 
 CREATE TABLE group_memberships(
     id SERIAL PRIMARY KEY,
-    group_id INTEGER NOT NULL,
+    group_chat_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
 
-    FOREIGN KEY (group_id) REFERENCES group_chats(id),
+    FOREIGN KEY (group_chat_id) REFERENCES group_chats(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
