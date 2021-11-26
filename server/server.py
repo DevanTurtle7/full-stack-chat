@@ -5,16 +5,19 @@ if __name__ == '__main__':
     from utils.db_utils import *
     from api.chats import Chats
     from api.direct_messages import DirectMessages
+    from api.group_messages import GroupMessages
 else:
     from server.utils.db_utils import *
     from server.api.chats import Chats
     from server.api.direct_messages import DirectMessages
+    from server.api.group_messages import GroupMessages
 
 app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(Chats,'/chats')
 api.add_resource(DirectMessages,'/direct_messages')
+api.add_resource(GroupMessages,'/group_messages')
 
 def rebuild_tables():
     exec_sql_file('server/schema.sql')

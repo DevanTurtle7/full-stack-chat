@@ -102,3 +102,18 @@ class TestApi(unittest.TestCase):
         self.assertEqual(expected_num, len(messages))
         self.assertEqual(messages[0], expected_message_1)
         self.assertEqual(messages[1], expected_message_2)
+    
+    def test_get_group_messages_user_1_chat_1(self):
+        expected_num = 4
+        expected_message_1 = {'sender_id': 2, 'sender_name': 'Bob', 'sender_username': 'bob27', 'group_chat_id': 1, 'group_chat_name': 'OUR CHAT', 'message_text': 'pretty good pretty good', 'time_sent': '1923-10-03T00:00:01', 'read': False}
+        expected_message_2 = {'sender_id': 1, 'sender_name': 'devan', 'sender_username': 'dev', 'group_chat_id': 1, 'group_chat_name': 'OUR CHAT', 'message_text': 'hows it going?', 'time_sent': '1922-10-03T00:00:01', 'read': False}
+        expected_message_3 = {'sender_id': 3, 'sender_name': 'james', 'sender_username': 'james2285', 'group_chat_id': 1, 'group_chat_name': 'OUR CHAT', 'message_text': 'yo whats up', 'time_sent': '1921-10-03T00:00:01', 'read': False}
+        expected_message_4 = {'sender_id': 1, 'sender_name': 'devan', 'sender_username': 'dev', 'group_chat_id': 1, 'group_chat_name': 'OUR CHAT', 'message_text': 'hey whats up, welcome to the chat', 'time_sent': '1919-10-03T00:00:01', 'read': False}
+
+        messages = get_rest_call(self, API_URL + "/group_messages", params={'user_id': 1, 'group_chat_id': 1})
+
+        self.assertEqual(expected_num, len(messages))
+        self.assertEqual(messages[0], expected_message_1)
+        self.assertEqual(messages[1], expected_message_2)
+        self.assertEqual(messages[2], expected_message_3)
+        self.assertEqual(messages[3], expected_message_4)

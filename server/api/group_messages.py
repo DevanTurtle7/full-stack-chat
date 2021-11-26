@@ -14,7 +14,7 @@ except:
 
 class GroupMessages(Resource):
     def __init__(self):
-        self.__columns = ["id", "sender_id", "group_chat_id", "message_text", "time_sent", "read"]
+        self.__columns = ["sender_id", "sender_name", "sender_username", "group_chat_id", "group_chat_name", "message_text", "time_sent", "read"]
 
     def get(self):
         parser = reqparse.RequestParser()
@@ -30,11 +30,15 @@ class GroupMessages(Resource):
         if user_id != None and group_chat_id != None:
             sql_string = """
             SELECT sender_id, users.name as sender_name, users.username as sender_username,
-            message_text, time_sent, read
-            FROM group_messages INNER JOIN users ON sender_id = users.id
-            INNER JOIN group_memberships ON group_chat_id = group_chat_id
-            WHERE group_chat_id = %(group_chat_id)s AND group_memberships.user_id = %(user_id)s;
+            group_messages.group_chat_id, group_chats.name as grop_chat_name, message_text,
+            time_sent, read
+            FROM group_messages INNER JOIN group_chats ON group_messages.group_chat_id = group_chats.id
+            INNER JOIN group_memberships ON group_memberships.group_chat_id = group_chats.id
+            INNER JOIN users ON group_messages.sender_id = users.id
+            WHERE group_memberships.user_id = %(user_id)s AND group_messages.group_chat_id = %(group_chat_id)s
+            ORDER BY time_sent DESC;
             """
+
             args = {'user_id': user_id, 'group_chat_id': group_chat_id}
 
             if limit != None:
@@ -47,4 +51,4 @@ class GroupMessages(Resource):
 
             return result
         else:
-            return {"status": 400, "error": "Error, no user id or receiever id provided"}
+            return {"status": 400, "error": "Error, no user id or group chat id provided"}
