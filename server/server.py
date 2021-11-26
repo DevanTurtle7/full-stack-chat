@@ -14,12 +14,12 @@ api = Api(app)
 api.add_resource(Messages,'/messages')
 
 def rebuild_tables():
-    exec_sql_file('server/api/schema.sql')
+    exec_sql_file('server/schema.sql')
 
 if __name__ == '__main__':
     print("Loading db");
-    exec_sql_file('server/api/schema.sql');
-    exec_sql_file('tests/test_data.sql')
+    exec_sql_file('server/schema.sql');
+    exec_sql_file('tests/utils/test_data.sql')
     print("Starting flask");
     app.run(debug=True), #starts Flask
 

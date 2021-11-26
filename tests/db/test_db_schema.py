@@ -1,7 +1,7 @@
 import unittest
 from server.utils.db_utils import *
 from server.server import rebuild_tables
-from tests.test_utils import *
+from tests.utils.test_utils import *
 
 class TestDBSchema(unittest.TestCase):
 
