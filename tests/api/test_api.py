@@ -23,7 +23,6 @@ class TestApi(unittest.TestCase):
         expected_chat_4 = {'id': 3, 'name': 'james', 'last_message': 'hello', 'last_sent': '1921-10-03T00:00:01'}
 
         chats = get_rest_call(self, API_URL + "/chats", params={'user_id': 1})
-        print(chats)
 
         self.assertEqual(expected_num, len(chats))
         self.assertEqual(chats[0], expected_chat_1)
