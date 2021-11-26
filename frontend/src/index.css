@@ -94,3 +94,8 @@ code {
   border-radius: 20px !important;
   height: 100%;
 }
+
+.chat-button:hover {
+  background-color: #d9dcde;
+  cursor: pointer;
+}
