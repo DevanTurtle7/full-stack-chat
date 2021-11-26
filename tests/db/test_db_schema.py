@@ -28,8 +28,8 @@ class TestDBSchema(unittest.TestCase):
         """Attempt to insert the seed data"""
         rebuild_tables()
         insert_test_data()
-        assert_sql_count(self, "SELECT * FROM users", 3)
-        assert_sql_count(self, "SELECT * FROM group_chats", 1)
-        assert_sql_count(self, "SELECT * FROM group_memberships", 3)
+        assert_sql_count(self, "SELECT * FROM users", 4)
+        assert_sql_count(self, "SELECT * FROM group_chats", 2)
+        assert_sql_count(self, "SELECT * FROM group_memberships", 7)
         assert_sql_count(self, "SELECT * FROM direct_messages", 9)
-        assert_sql_count(self, "SELECT * FROM group_messages", 4)
+        assert_sql_count(self, "SELECT * FROM group_messages", 5)

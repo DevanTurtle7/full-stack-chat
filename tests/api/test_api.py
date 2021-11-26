@@ -15,9 +15,23 @@ class TestApi(unittest.TestCase):
         rebuild_tables()
         insert_test_data()
     
-    def test_get_all_messages(self):
-        expected_length = 6
+    def test_get_chats(self):
+        expected_num = 4
+        expected_chat_1 = {'name': 'ANOTHER CHAT', 'last_message': 'helloooo', 'last_sent': '2020-10-03T00:00:01'}
+        expected_chat_2 = {'name': 'bob27', 'last_message': 'Just testing out this app', 'last_sent': '1923-09-03T00:00:01'}
+        expected_chat_3 = {'name': 'dev', 'last_message': 'Oh hey, whats up?', 'last_sent': '1922-10-03T00:00:03'}
+        expected_chat_4 = {'name': 'OUR CHAT', 'last_message': 'hey whats up, welcome to the chat', 'last_sent': '1919-10-03T00:00:01'}
 
-        actual = get_rest_call(self, API_URL + "/messages")
+        chats = get_rest_call(self, API_URL + "/chats", params={'user_id': 1})
 
-        self.assertEqual(expected_length, len(actual))
+        self.assertEqual(expected_num, len(chats))
+        self.assertEqual(chats[0], expected_chat_1)
+        self.assertEqual(chats[1], expected_chat_2)
+        self.assertEqual(chats[2], expected_chat_3)
+        self.assertEqual(chats[3], expected_chat_4)
+
+    def test_get_chats_no_id(self):
+        expected = {"status": 400, "error": "Error, no user id provided"}
+        actual = get_rest_call(self, API_URL + "/chats")
+
+        self.assertEqual(expected, actual)
