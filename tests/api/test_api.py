@@ -74,3 +74,10 @@ class TestApi(unittest.TestCase):
         actual = get_rest_call(self, API_URL + "/chats")
 
         self.assertEqual(expected, actual)
+    
+    def test_get_direct_messages_user_1_user_2(self):
+        expected_num = 5
+
+        messages = get_rest_call(self, API_URL + "/direct_messages", params={'user_id': 1, 'receiver_id': 2})
+
+        self.assertEqual(expected_num, len(messages))

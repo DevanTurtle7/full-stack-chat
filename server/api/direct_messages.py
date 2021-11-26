@@ -30,7 +30,7 @@ class DirectMessages(Resource):
 
             """
 
-            args = {'user_id': user_id}
+            args = {'user_id': user_id, 'receiver_id': receiver_id}
 
             sql_data = exec_get_all(sql_string, args)
             result = jsonify_sql(sql_data, self.__columns)
