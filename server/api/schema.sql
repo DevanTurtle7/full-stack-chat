@@ -42,12 +42,12 @@ CREATE TABLE direct_messages(
 CREATE TABLE group_messages(
     id SERIAL PRIMARY KEY,
     sender_id INTEGER NOT NULL,
-    receiver_id INTEGER NOT NULL,
+    group_chat_id INTEGER NOT NULL,
     message_text TEXT NOT NULL,
     time_sent TIMESTAMP DEFAULT NOW(),
     read BOOLEAN DEFAULT FALSE,
 
     FOREIGN KEY (sender_id) REFERENCES users(id),
-    FOREIGN KEY (receiver_id) REFERENCES users(id)
+    FOREIGN KEY (group_chat_id) REFERENCES group_chats(id)
 );
 
