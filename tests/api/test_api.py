@@ -16,7 +16,7 @@ class TestApi(unittest.TestCase):
         insert_test_data()
     
     def test_get_all_messages(self):
-        expected_length = 13
+        expected_length = 6
 
         actual = get_rest_call(self, API_URL + "/messages")
 
