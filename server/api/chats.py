@@ -41,7 +41,27 @@ class Chats(Resource):
                 INNER JOIN group_messages ON group_id = group_chat_id
                 WHERE user_id = %(user_id)s
                 GROUP BY group_id, name, message_text, time_sent
-                ORDER BY name, time_sent DESC;
+                ORDER BY time_sent DESC;
+            """
+
+            """
+            SELECT DISTINCT ON (name) 'direct_message' as type, users.id, name, message_text, time_sent
+                FROM direct_messages INNER JOIN users ON
+                    (CASE WHEN receiver_id = 3 THEN sender_id
+                    WHEN sender_id = 3 THEN receiver_id END)
+                = users.id
+                WHERE receiver_id = 3 OR sender_id = 3
+                GROUP BY users.id, name, message_text, time_sent
+
+                UNION
+
+                SELECT DISTINCT ON (name) 'group_chat' as type, group_id, name, message_text, time_sent
+                FROM group_memberships  INNER JOIN group_chats
+                ON group_id = group_chats.id
+                INNER JOIN group_messages ON group_id = group_chat_id
+                WHERE user_id = 3
+                GROUP BY group_id, name, message_text, time_sent
+                ORDER BY time_sent DESC;
             """
 
             args = {'user_id': user_id}
