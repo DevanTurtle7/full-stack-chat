@@ -12,6 +12,7 @@ class Sidebar extends Component {
             buttons.push(<ChatButton
                 name={chat.name}
                 lastMessage={chat.last_message}
+                callback={this.props.callback}
                 key={key}
             />)
         }

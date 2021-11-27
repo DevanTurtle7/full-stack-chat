@@ -3,7 +3,7 @@ import { Col } from 'reactstrap';
 
 class ChatButton extends Component {
     onClick = () => {
-        console.log("hello")
+        this.props.callback(this.props.name)
     }
 
     render() {

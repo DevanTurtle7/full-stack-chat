@@ -40,12 +40,16 @@ class App extends Component {
     this.getChats(1)
   }
 
+  changeChat = (newChat) => {
+    this.setState({ current: newChat })
+  }
+
   render() {
     return (
       <div className="App">
         <Container fluid>
           <Row className="row-height">
-            <Sidebar chats={this.state.chats} />
+            <Sidebar chats={this.state.chats} callback={this.changeChat}/>
             <Chat />
           </Row>
         </Container>
