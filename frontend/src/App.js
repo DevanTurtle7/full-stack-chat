@@ -12,7 +12,8 @@ class App extends Component {
 
     this.state = {
       open: null,
-      chats: []
+      chats: {},
+      current: null
     }
   }
 
@@ -23,7 +24,15 @@ class App extends Component {
       method: 'GET',
     }).then(response => response.json())
       .then(response => {
-        this.setState({ chats: response })
+        let chats = {}
+
+        for (var i = 0; i < response.length; i++) {
+          let current = response[i]
+
+          chats[current.name] = current
+        }
+
+        this.setState({ chats: chats })
       });
   }
 
