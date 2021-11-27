@@ -3,59 +3,78 @@ import { Col } from 'reactstrap';
 import Bubble from './Bubble';
 import ChatInput from './ChatInput';
 
+const API_URL = 'http://127.0.0.1:5000'
+
 class Chat extends Component {
     constructor(props) {
         super(props)
 
-        // Temp stuff for testing
-        this.messages = [
-            { sender: 1, message: "hello" },
-            { sender: 1, message: "Lorem ipsum..." },
-            { sender: 1, message: "Blah blah blah" },
-            { sender: 1, message: "This is a long message. This is a test to see what a long message looks like. Lets try it out." },
-            { sender: 2, message: "Hey whats up. This is a long message from the other user" },
-            { sender: 2, message: "This is another random message from the other person" },
-            { sender: 1, message: "Okay bye" },
-            { sender: 1, message: "hello" },
-            { sender: 1, message: "Lorem ipsum..." },
-            { sender: 1, message: "Blah blah blah" },
-            { sender: 1, message: "This is a long message. This is a test to see what a long message looks like. Lets try it out." },
-            { sender: 2, message: "Hey whats up. This is a long message from the other user" },
-            { sender: 2, message: "This is another random message from the other person" },
-            { sender: 1, message: "Okay bye" },
-            { sender: 1, message: "hello" },
-            { sender: 1, message: "Lorem ipsum..." },
-            { sender: 1, message: "Blah blah blah" },
-            { sender: 1, message: "This is a long message. This is a test to see what a long message looks like. Lets try it out." },
-            { sender: 2, message: "Hey whats up. This is a long message from the other user" },
-            { sender: 2, message: "This is another random message from the other person" },
-            { sender: 1, message: "Okay bye" },
-        ]
-
+        this.state = {
+            messages: []
+        }
         this.userId = 1;
+
+        console.log("HI")
+    }
+
+    getMessages = () => {
+        let current = this.props.current
+
+        if (current != null) {
+            let type = current['type']
+            let id = current['id']
+            let route;
+
+            if (type === 'direct_message') {
+                route = `/direct_messages?user_id=${this.userId}&receiver_id=${id}`
+            } else if (type === 'group_chat') {
+                route = `/group_messages?user_id=${this.userId}&group_chat_id=${id}`
+            }
+
+            fetch(API_URL + route, {
+                method: 'GET',
+            }).then(response => response.json())
+                .then(response => {
+                    this.setState({ messages: response })
+                });
+        } else {
+            this.setState({ messages: [] })
+        }
+    }
+
+    componentDidMount() {
+        this.getMessages()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            console.log("YO")
+            this.getMessages()
+        }
     }
 
     render() {
-        var messages = []
-        var numMessages = this.messages.length
+        var messages = this.state.messages
+        var numMessages = messages.length
+        var bubbles = []
 
         for (var i = 0; i < numMessages; i++) {
-            let message = this.messages[i]
-            let sender = message.sender
+            let message = messages[i]
+            let sender = message.sender_id
 
-            messages.push(<Bubble
+            bubbles.push(<Bubble
                 sent={sender === this.userId}
-                text={message.message}
-                first={i === 0 || this.messages[i - 1].sender !== sender}
-                last={i === (numMessages - 1) || this.messages[i + 1].sender !== sender}
+                text={message.message_text}
+                first={i === 0 || messages[i - 1].sender !== sender}
+                last={i === (numMessages - 1) || messages[i + 1].sender !== sender}
                 key={i}
             />)
         }
 
         return (
             <Col sm={8} className="chat-window">
-                {messages}
-                <ChatInput/>
+                {bubbles}
+                <ChatInput />
             </Col>
         )
     }

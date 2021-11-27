@@ -31,6 +31,7 @@ class App extends Component {
 
           chats[current.name] = current
         }
+          console.log(response)
 
         this.setState({ chats: chats })
       });
@@ -41,16 +42,17 @@ class App extends Component {
   }
 
   changeChat = (newChat) => {
-    this.setState({ current: newChat })
+    this.setState({ current: this.state.chats[newChat] })
   }
 
   render() {
+    console.log(this.state.current)
     return (
       <div className="App">
         <Container fluid>
           <Row className="row-height">
             <Sidebar chats={this.state.chats} callback={this.changeChat}/>
-            <Chat />
+            <Chat current={this.state.current}/>
           </Row>
         </Container>
       </div>
