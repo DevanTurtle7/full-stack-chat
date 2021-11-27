@@ -13,8 +13,6 @@ class Chat extends Component {
             messages: []
         }
         this.userId = 1;
-
-        console.log("HI")
     }
 
     getMessages = () => {
@@ -48,7 +46,6 @@ class Chat extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
-            console.log("YO")
             this.getMessages()
         }
     }
