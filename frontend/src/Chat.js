@@ -56,7 +56,7 @@ class Chat extends Component {
         let numMessages = messages.length
         const bubbles = []
 
-        for (var i = 0; i < numMessages; i++) {
+        for (var i = numMessages - 1; i >= 0; i--) {
             let message = messages[i]
             let sender = message.sender_id
 
