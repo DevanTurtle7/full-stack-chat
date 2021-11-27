@@ -9,8 +9,8 @@ class ChatButton extends Component {
     render() {
         return (
             <Col onClick={this.onClick} className="chat-button">
-                <p>User1</p>
-                <p>Okay bye</p>
+                <p>{this.props.name}</p>
+                <p>{this.props.lastMessage}</p>
             </Col>
         )
     }

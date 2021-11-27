@@ -12,20 +12,23 @@ class App extends Component {
 
     this.state = {
       open: null,
+      chats: []
     }
-
-    console.log(this.getChats(1))
-
   }
 
   getChats = (user_id) => {
     let route = `/chats?user_id=${user_id}`
+
     fetch(API_URL + route, {
       method: 'GET',
     }).then(response => response.json())
       .then(response => {
-        console.log(response)
+        this.setState({ chats: response })
       });
+  }
+
+  componentDidMount() {
+    this.getChats(1)
   }
 
   render() {
@@ -33,7 +36,7 @@ class App extends Component {
       <div className="App">
         <Container fluid>
           <Row className="row-height">
-            <Sidebar />
+            <Sidebar chats={this.state.chats} />
             <Chat />
           </Row>
         </Container>
