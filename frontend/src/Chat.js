@@ -20,8 +20,8 @@ class Chat extends Component {
         let current = this.props.current
 
         if (current !== null) {
-            let type = current['type']
-            let id = current['id']
+            let type = current.type
+            let id = current.id
             let route;
 
             if (type === 'direct_message') {
@@ -75,7 +75,7 @@ class Chat extends Component {
             return (
                 <Col sm={8} className="chat-window">
                     {bubbles}
-                    <ChatInput />
+                    <ChatInput current={this.props.current}/>
                 </Col>
             )
         }
