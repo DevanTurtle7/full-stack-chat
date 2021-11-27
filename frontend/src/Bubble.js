@@ -6,23 +6,22 @@ import {
 class Bubble extends Component {
     constructor(props) {
         super(props);
-
-        this.sentClassName = this.props.sent ? "chat-bubble-sent" : "chat-bubble-received";
-        this.firstClassName = this.props.first ? "chat-bubble-first" : ""
-        this.lastClassName = this.props.last ? "chat-bubble-last" : ""
-        this.justification = this.props.sent ? "justify-content-end" : "justify-content-start"
-        this.bgColor = this.props.sent ? "bg-primary" : "bg-secondary"
     }
 
     render() {
+        let sentClassName = this.props.sent ? "chat-bubble-sent" : "chat-bubble-received";
+        let firstClassName = this.props.first ? "chat-bubble-first" : ""
+        let lastClassName = this.props.last ? "chat-bubble-last" : ""
+        let justification = this.props.sent ? "justify-content-end" : "justify-content-start"
+        let bgColor = this.props.sent ? "bg-primary" : "bg-secondary"
+
         return (
-            <Col className={"d-flex " + this.justification}>
+            <Col className={"d-flex " + justification}>
                 <div className={"chat-bubble "
-                + this.sentClassName + " "
-                + this.firstClassName + " "
-                + this.lastClassName + " "
-                + this.bgColor}
-                color={this.color}>
+                    + sentClassName + " "
+                    + firstClassName + " "
+                    + lastClassName + " "
+                    + bgColor}>
                     <p>{this.props.text}</p>
                 </div>
             </Col>

@@ -12,6 +12,7 @@ class Chat extends Component {
         this.state = {
             messages: []
         }
+
         this.userId = 1;
     }
 
@@ -40,20 +41,20 @@ class Chat extends Component {
         }
     }
 
-    componentDidMount() {
-        this.getMessages()
-    }
-
     componentDidUpdate(prevProps) {
-        if (prevProps !== this.props) {
+        if (prevProps != this.props) {
             this.getMessages()
         }
     }
 
+    componentDidMount() {
+        this.getMessages()
+    }
+
     render() {
-        var messages = this.state.messages
-        var numMessages = messages.length
-        var bubbles = []
+        let messages = this.state.messages
+        let numMessages = messages.length
+        const bubbles = []
 
         for (var i = 0; i < numMessages; i++) {
             let message = messages[i]
@@ -68,20 +69,12 @@ class Chat extends Component {
             />)
         }
 
-        if (this.props.current === null) {
-            return (
-                <Col sm={8} className="chat-window">
-                    {bubbles}
-                </Col>
-            )
-        } else {
-            return (
-                <Col sm={8} className="chat-window">
-                    {bubbles}
-                    <ChatInput />
-                </Col>
-            )
-        }
+        return (
+            <Col sm={8} className="chat-window">
+                {bubbles}
+                <ChatInput />
+            </Col>
+        )
     }
 }
 

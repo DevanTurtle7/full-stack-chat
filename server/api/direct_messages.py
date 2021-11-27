@@ -36,7 +36,7 @@ class DirectMessages(Resource):
                 WHEN %(user_id)s = receiver_id THEN sender_id END)
             = users.id
             WHERE %(user_id)s in (sender_id, receiver_id) and %(receiver_id)s in (sender_id, receiver_id) 
-            ORDER BY time_sent DESC
+            ORDER BY time_sent ASC
             """
             args = {'user_id': user_id, 'receiver_id': receiver_id}
 

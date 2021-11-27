@@ -13,8 +13,11 @@ class App extends Component {
     this.state = {
       open: null,
       chats: {},
-      current: null
+      current: null,
+      messages: []
     }
+
+    this.userId = 1
   }
 
   getChats = (user_id) => {
@@ -40,7 +43,7 @@ class App extends Component {
     this.getChats(1)
   }
 
-  changeChat = (newChat) => {
+  changeChat = async (newChat) => {
     this.setState({ current: this.state.chats[newChat] })
   }
 
