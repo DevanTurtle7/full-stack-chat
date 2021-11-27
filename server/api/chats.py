@@ -25,13 +25,23 @@ class Chats(Resource):
 
         if user_id != None:
             sql_string = """
-                SELECT DISTINCT ON (name) 'direct_message' as type, users.id, name, message_text, time_sent
-                FROM direct_messages INNER JOIN users ON
-                    (CASE WHEN receiver_id = %(user_id)s THEN sender_id
-                    WHEN sender_id = %(user_id)s THEN receiver_id END)
-                = users.id
-                WHERE receiver_id = %(user_id)s OR sender_id = %(user_id)s
-                GROUP BY users.id, name, message_text, time_sent
+                SELECT 'direct_message' as type, chats.id, users.name, message_text, chats.time_sent
+                FROM (
+                    SELECT (
+                        CASE WHEN receiver_id = %(user_id)s THEN sender_id
+                        WHEN sender_id = %(user_id)s THEN receiver_id END
+                    ) as id, max(time_sent) as time_sent
+                    FROM direct_messages INNER JOIN users ON (
+                        CASE WHEN receiver_id = %(user_id)s THEN sender_id
+                        WHEN sender_id = %(user_id)s THEN receiver_id END
+                    ) = users.id
+                    GROUP BY (
+                        CASE WHEN receiver_id = %(user_id)s THEN sender_id
+                        WHEN sender_id = %(user_id)s THEN receiver_id END
+                    )
+                ) as chats
+                INNER JOIN direct_messages ON direct_messages.time_sent = chats.time_sent
+                INNER JOIN users ON chats.id = users.id
 
                 UNION
 
