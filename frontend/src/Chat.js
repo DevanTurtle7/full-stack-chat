@@ -62,18 +62,26 @@ class Chat extends Component {
             bubbles.push(<Bubble
                 sent={sender === this.userId}
                 text={message.message_text}
-                first={i === 0 || messages[i - 1].sender !== sender}
-                last={i === (numMessages - 1) || messages[i + 1].sender !== sender}
+                first={i === 0 || messages[i - 1].sender_id !== sender}
+                last={i === (numMessages - 1) || messages[i + 1].sender_id !== sender}
                 key={i}
             />)
         }
 
-        return (
-            <Col sm={8} className="chat-window">
-                {bubbles}
-                <ChatInput />
-            </Col>
-        )
+        if (this.props.current === null) {
+            return (
+                <Col sm={8} className="chat-window">
+                    {bubbles}
+                </Col>
+            )
+        } else {
+            return (
+                <Col sm={8} className="chat-window">
+                    {bubbles}
+                    <ChatInput />
+                </Col>
+            )
+        }
     }
 }
 
