@@ -130,3 +130,19 @@ class TestApi(unittest.TestCase):
         self.assertEqual(messages[0], expected_message_1)
         self.assertEqual(messages[1], expected_message_2)
         self.assertEqual(messages[2], expected_message_3)
+    
+    def test_send_direct_message(self):
+        expected_num = 6
+        expected_message = {'sender_id': 1, 'receiver_id': 2, 'other_name': 'Bob', 'other_username': 'bob27', 'message_text': 'This is a test of sending a message', 'time_sent': '2021-11-26T23:22:22.548075', 'read': False}
+
+        post_rest_call(self, API_URL + "/direct_messages", params={'user_id': 1, 'receiver_id': 2, 'text': 'This is a test of sending a message'})
+        messages = get_rest_call(self, API_URL + "/direct_messages", params={'user_id': 1, 'receiver_id': 2})
+        message = messages[0]
+
+        self.assertEqual(expected_num, len(messages))
+        self.assertEqual(expected_message['sender_id'], message['sender_id'])
+        self.assertEqual(expected_message['receiver_id'], message['receiver_id'])
+        self.assertEqual(expected_message['other_name'], message['other_name'])
+        self.assertEqual(expected_message['other_username'], message['other_username'])
+        self.assertEqual(expected_message['message_text'], message['message_text'])
+        self.assertEqual(expected_message['read'], message['read'])

@@ -51,3 +51,25 @@ class DirectMessages(Resource):
             return result
         else:
             return {"status": 400, "error": "Error, no user id or receiever id provided"}
+    
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("user_id", type=int)
+        parser.add_argument("receiver_id", type=int)
+        parser.add_argument("text", type=str)
+        args = parser.parse_args()
+
+        user_id = args["user_id"]
+        receiver_id = args["receiver_id"]
+        text = args["text"]
+
+        if user_id != None and receiver_id != None and text != None:
+            sql_string = """
+            INSERT INTO direct_messages(sender_id, receiver_id, message_text) VALUES
+            (%(user_id)s, %(receiver_id)s, %(message_text)s)
+            """
+            args = {'user_id': user_id, 'receiver_id': receiver_id, 'message_text': text}
+
+            exec_commit(sql_string, args)
+        else:
+            return {"status": 400, "error": "Error, missing user id, receiever id, or text"}
