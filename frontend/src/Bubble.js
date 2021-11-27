@@ -4,10 +4,6 @@ import {
 } from 'reactstrap';
 
 class Bubble extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let sentClassName = this.props.sent ? "chat-bubble-sent" : "chat-bubble-received";
         let firstClassName = this.props.first ? "chat-bubble-first" : ""

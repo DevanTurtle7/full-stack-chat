@@ -19,7 +19,7 @@ class Chat extends Component {
     getMessages = () => {
         let current = this.props.current
 
-        if (current != null) {
+        if (current !== null) {
             let type = current['type']
             let id = current['id']
             let route;
@@ -42,7 +42,7 @@ class Chat extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps != this.props) {
+        if (prevProps !== this.props) {
             this.getMessages()
         }
     }
