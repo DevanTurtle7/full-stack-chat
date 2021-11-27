@@ -69,12 +69,16 @@ class Chat extends Component {
             />)
         }
 
-        return (
-            <Col sm={8} className="chat-window">
-                {bubbles}
-                <ChatInput />
-            </Col>
-        )
+        if (this.props.current === null) {
+            return (<Col sm={8} className="chat-window"></Col>)
+        } else {
+            return (
+                <Col sm={8} className="chat-window">
+                    {bubbles}
+                    <ChatInput />
+                </Col>
+            )
+        }
     }
 }
 

@@ -12,7 +12,7 @@ class ChatInput extends Component {
     }
 
     sendMessage = () => {
-
+        console.log('sending message: ' + this.state.message)
     }
 
     updateMessage = (newMessage) => {

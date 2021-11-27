@@ -6,10 +6,6 @@ class MessageInput extends Component {
         this.props.callback(event.target.value)
     }
 
-    submit = () => {
-        console.log('submitted')
-    }
-
     render() {
         return (
             <Col className="px-0">
