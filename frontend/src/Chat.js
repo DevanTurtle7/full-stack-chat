@@ -63,8 +63,8 @@ class Chat extends Component {
             bubbles.push(<Bubble
                 sent={sender === this.userId}
                 text={message.message_text}
-                first={i === 0 || messages[i - 1].sender_id !== sender}
-                last={i === (numMessages - 1) || messages[i + 1].sender_id !== sender}
+                first={i === (numMessages - 1) || messages[i + 1].sender_id !== sender}
+                last={i === 0 || messages[i - 1].sender_id !== sender}
                 key={i}
             />)
         }
