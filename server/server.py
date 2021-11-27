@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
+from flask_cors import CORS, cross_origin
 
 if __name__ == '__main__':
     from utils.db_utils import *
@@ -13,6 +14,8 @@ else:
     from server.api.group_messages import GroupMessages
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 api = Api(app)
 
 api.add_resource(Chats,'/chats')
