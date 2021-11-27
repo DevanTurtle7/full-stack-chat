@@ -52,3 +52,25 @@ class GroupMessages(Resource):
             return result
         else:
             return {"status": 400, "error": "Error, no user id or group chat id provided"}
+        
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("user_id", type=int)
+        parser.add_argument("group_chat_id", type=int)
+        parser.add_argument("text", type=str)
+        args = parser.parse_args()
+
+        user_id = args["user_id"]
+        group_chat_id = args["group_chat_id"]
+        text = args["text"]
+
+        if user_id != None and group_chat_id != None and text != None:
+            sql_string = """
+            INSERT INTO group_messages(sender_id, group_chat_id, message_text) VALUES
+            (%(user_id)s, %(group_chat_id)s, %(message_text)s)
+            """
+            args = {'user_id': user_id, 'group_chat_id': group_chat_id, 'message_text': text}
+
+            exec_commit(sql_string, args)
+        else:
+            return {"status": 400, "error": "Error, missing user id, group chat id, or text"}

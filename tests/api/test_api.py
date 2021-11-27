@@ -146,3 +146,20 @@ class TestApi(unittest.TestCase):
         self.assertEqual(expected_message['other_username'], message['other_username'])
         self.assertEqual(expected_message['message_text'], message['message_text'])
         self.assertEqual(expected_message['read'], message['read'])
+    
+    def test_send_group_message(self):
+        expected_num = 5
+        expected_message = {'sender_id': 1, 'sender_name': 'devan', 'sender_username': 'dev', 'group_chat_id': 1, 'group_chat_name': 'OUR CHAT', 'message_text': 'This is a test of sending a group message', 'time_sent': '2021-11-26T23:29:10.296296', 'read': False}
+
+        post_rest_call(self, API_URL + "/group_messages", params={'user_id': 1, 'group_chat_id': 1, 'text': 'This is a test of sending a group message'})
+        messages = get_rest_call(self, API_URL + "/group_messages", params={'user_id': 1, 'group_chat_id': 1})
+        message = messages[0]
+
+        self.assertEqual(expected_num, len(messages))
+        self.assertEqual(expected_message['sender_id'], message['sender_id'])
+        self.assertEqual(expected_message['sender_name'], message['sender_name'])
+        self.assertEqual(expected_message['sender_username'], message['sender_username'])
+        self.assertEqual(expected_message['group_chat_id'], message['group_chat_id'])
+        self.assertEqual(expected_message['group_chat_name'], message['group_chat_name'])
+        self.assertEqual(expected_message['message_text'], message['message_text'])
+        self.assertEqual(expected_message['read'], message['read'])
