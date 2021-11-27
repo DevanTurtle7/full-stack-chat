@@ -31,7 +31,8 @@ class Chats(Resource):
                         CASE WHEN receiver_id = %(user_id)s THEN sender_id
                         WHEN sender_id = %(user_id)s THEN receiver_id END
                     ) as id, max(time_sent) as time_sent
-                    FROM direct_messages INNER JOIN users ON (
+                    FROM direct_messages
+                    INNER JOIN users ON (
                         CASE WHEN receiver_id = %(user_id)s THEN sender_id
                         WHEN sender_id = %(user_id)s THEN receiver_id END
                     ) = users.id
@@ -45,14 +46,19 @@ class Chats(Resource):
 
                 UNION
 
-                SELECT DISTINCT ON (name) 'group_chat' as type, group_memberships.group_chat_id, name,
-                message_text, time_sent
-                FROM group_memberships INNER JOIN group_chats
-                ON group_memberships.group_chat_id = group_chats.id
-                INNER JOIN group_messages ON group_memberships.group_chat_id = group_messages.group_chat_id
-                WHERE user_id = %(user_id)s
-                GROUP BY group_memberships.group_chat_id, name, message_text, time_sent
-                ORDER BY time_sent DESC;
+                SELECT 'group_chat' as type, chats.id, group_chats.name, message_text, chats.time_sent
+                FROM (
+                    SELECT group_messages.group_chat_id as id, max(time_sent) as time_sent
+                    FROM group_messages
+                    INNER JOIN group_memberships
+                    ON group_messages.group_chat_id = group_memberships.group_chat_id
+                    WHERE user_id = %(user_id)s
+                    GROUP BY group_messages.group_chat_id
+                ) as chats
+                INNER JOIN group_messages ON group_messages.time_sent = chats.time_sent
+                INNER JOIN group_chats ON group_chats.id = chats.id
+
+                ORDER BY time_sent DESC
             """
 
             args = {'user_id': user_id}
