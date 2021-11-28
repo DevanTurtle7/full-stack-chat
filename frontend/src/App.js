@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   getChats = (user_id) => {
-    console.log(user_id)
     let route = `/chats?user_id=${user_id}`
 
     fetch(API_URL + route, {

@@ -40,6 +40,7 @@ class ChatInput extends Component {
         }).then(response => response.json())
             .then(response => {
                 if (response.success) {
+                    this.setState({message: ''})
                     this.props.refreshApp();
                 }
             });
@@ -53,7 +54,7 @@ class ChatInput extends Component {
         return (
             <div className="chat-input position-fixed end-0 bottom-0">
                 <Row className="m-2 mt-4">
-                    <MessageInput callback={this.updateMessage} />
+                    <MessageInput callback={this.updateMessage} text={this.state.message} sendMessage={this.sendMessage}/>
                     <SendButton callback={this.sendMessage} />
                 </Row>
             </div>
