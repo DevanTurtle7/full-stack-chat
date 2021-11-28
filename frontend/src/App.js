@@ -21,6 +21,7 @@ class App extends Component {
   }
 
   getChats = (user_id) => {
+    console.log(user_id)
     let route = `/chats?user_id=${user_id}`
 
     fetch(API_URL + route, {
@@ -53,7 +54,7 @@ class App extends Component {
         <Container fluid>
           <Row className="row-height">
             <Sidebar chats={this.state.chats} callback={this.changeChat} />
-            <Chat current={this.state.current} />
+            <Chat current={this.state.current} refreshApp={this.getChats}/>
           </Row>
         </Container>
       </div>

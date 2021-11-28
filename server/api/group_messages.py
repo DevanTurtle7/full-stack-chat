@@ -72,5 +72,7 @@ class GroupMessages(Resource):
             args = {'user_id': user_id, 'group_chat_id': group_chat_id, 'message_text': text}
 
             exec_commit(sql_string, args)
+
+            return {"status": 201, "success": "Message was sent successfully"}
         else:
             return {"status": 400, "error": "Error, missing user id, group chat id, or text"}

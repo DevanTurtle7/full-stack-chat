@@ -71,5 +71,7 @@ class DirectMessages(Resource):
             args = {'user_id': user_id, 'receiver_id': receiver_id, 'message_text': text}
 
             exec_commit(sql_string, args)
+
+            return {"status": 201, "success": "Message was sent successfully"}
         else:
             return {"status": 400, "error": "Error, missing user id, receiever id, or text"}

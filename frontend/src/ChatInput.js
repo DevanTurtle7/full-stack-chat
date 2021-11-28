@@ -37,7 +37,12 @@ class ChatInput extends Component {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
-        });
+        }).then(response => response.json())
+            .then(response => {
+                if (response.success) {
+                    this.props.refreshApp();
+                }
+            });
     }
 
     updateMessage = (newMessage) => {

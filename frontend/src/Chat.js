@@ -51,6 +51,10 @@ class Chat extends Component {
         this.getMessages()
     }
 
+    refreshApp = () => {
+        this.props.refreshApp(this.userId)
+    }
+
     render() {
         let messages = this.state.messages
         let numMessages = messages.length
@@ -75,7 +79,7 @@ class Chat extends Component {
             return (
                 <Col sm={8} className="chat-window">
                     {bubbles}
-                    <ChatInput current={this.props.current}/>
+                    <ChatInput current={this.props.current} refreshApp={this.refreshApp}/>
                 </Col>
             )
         }
