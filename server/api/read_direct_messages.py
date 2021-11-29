@@ -12,12 +12,12 @@ except:
     from utils.db_utils import *
     from utils.jsonify import jsonify_sql
 
-class ReadDirectMessages(Resource):
+class DirectMessages(Resource):
     def __init__(self):
         self.__columns = []
 
     def get(self):
-        return {"status": 400, "error": "Error, route in unimplemented"}
+        return {"status": 400, "error": "Error, route is unimplemented"}
     
     def post(self):
-        return {"status": 400, "error": "Error, route in unimplemented"}
+        return {"status": 400, "error": "Error, route is unimplemented"}
