@@ -7,7 +7,7 @@ class MessageInput extends Component {
     }
 
     onKeyPress = (event) => {
-        if (event.charCode == 13) {
+        if (event.charCode === 13) {
             this.props.sendMessage()
         }
     }

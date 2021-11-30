@@ -14,8 +14,6 @@ import { Col } from 'reactstrap';
 import Bubble from './Bubble';
 import ChatInput from './ChatInput';
 
-const API_URL = 'http://127.0.0.1:5000'
-
 class Chat extends Component {
     constructor(props) {
         super(props)
@@ -46,7 +44,7 @@ class Chat extends Component {
             }
 
             // Make a call to the api to get the messages
-            fetch(API_URL + route, {
+            fetch(route, {
                 method: 'GET',
             }).then(response => response.json())
                 .then(response => {
