@@ -33,14 +33,14 @@ class GroupMessages(Resource):
             limit = int(limit)
 
             sql_string = """
-            SELECT sender_id, users.name as sender_name, users.username as sender_username,
-            group_messages.group_chat_id, group_chats.name as grop_chat_name, message_text,
-            time_sent, read
-            FROM group_messages INNER JOIN group_chats ON group_messages.group_chat_id = group_chats.id
-            INNER JOIN group_memberships ON group_memberships.group_chat_id = group_chats.id
-            INNER JOIN users ON group_messages.sender_id = users.id
-            WHERE group_memberships.user_id = %(user_id)s AND group_messages.group_chat_id = %(group_chat_id)s
-            ORDER BY time_sent DESC
+                SELECT sender_id, users.name as sender_name, users.username as sender_username,
+                group_messages.group_chat_id, group_chats.name as grop_chat_name, message_text,
+                time_sent, read
+                FROM group_messages INNER JOIN group_chats ON group_messages.group_chat_id = group_chats.id
+                INNER JOIN group_memberships ON group_memberships.group_chat_id = group_chats.id
+                INNER JOIN users ON group_messages.sender_id = users.id
+                WHERE group_memberships.user_id = %(user_id)s AND group_messages.group_chat_id = %(group_chat_id)s
+                ORDER BY time_sent DESC
             """
 
             args = {'user_id': user_id, 'group_chat_id': group_chat_id}
@@ -74,8 +74,8 @@ class GroupMessages(Resource):
             text = str(text)
 
             sql_string = """
-            INSERT INTO group_messages(sender_id, group_chat_id, message_text) VALUES
-            (%(user_id)s, %(group_chat_id)s, %(message_text)s)
+                INSERT INTO group_messages(sender_id, group_chat_id, message_text) VALUES
+                (%(user_id)s, %(group_chat_id)s, %(message_text)s)
             """
             args = {'user_id': user_id, 'group_chat_id': group_chat_id, 'message_text': text}
 
