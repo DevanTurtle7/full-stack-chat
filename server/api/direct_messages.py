@@ -30,7 +30,9 @@ class DirectMessages(Resource):
         if user_id != None and receiver_id != None:
             user_id = int(user_id)
             receiver_id = int(receiver_id)
-            limit = int(limit)
+
+            if limit != None:
+                limit = int(limit)
 
             sql_string = """
                 SELECT sender_id, receiver_id, users.name as other_name, users.username as other_username,

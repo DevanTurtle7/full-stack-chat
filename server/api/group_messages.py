@@ -30,7 +30,6 @@ class GroupMessages(Resource):
         if user_id != None and group_chat_id != None:
             user_id = int(user_id)
             group_chat_id = int(group_chat_id)
-            limit = int(limit)
 
             sql_string = """
                 SELECT sender_id, users.name as sender_name, users.username as sender_username,
@@ -46,6 +45,7 @@ class GroupMessages(Resource):
             args = {'user_id': user_id, 'group_chat_id': group_chat_id}
 
             if limit != None:
+                limit = int(limit)
                 sql_string += " LIMIT %(limit)s"
                 args['limit'] = limit
 
