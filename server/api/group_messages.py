@@ -28,15 +28,19 @@ class GroupMessages(Resource):
         limit = args["limit"]
 
         if user_id != None and group_chat_id != None:
+            user_id = int(user_id)
+            group_chat_id = int(group_chat_id)
+            limit = int(limit)
+
             sql_string = """
-            SELECT sender_id, users.name as sender_name, users.username as sender_username,
-            group_messages.group_chat_id, group_chats.name as grop_chat_name, message_text,
-            time_sent, read
-            FROM group_messages INNER JOIN group_chats ON group_messages.group_chat_id = group_chats.id
-            INNER JOIN group_memberships ON group_memberships.group_chat_id = group_chats.id
-            INNER JOIN users ON group_messages.sender_id = users.id
-            WHERE group_memberships.user_id = %(user_id)s AND group_messages.group_chat_id = %(group_chat_id)s
-            ORDER BY time_sent DESC
+                SELECT sender_id, users.name as sender_name, users.username as sender_username,
+                group_messages.group_chat_id, group_chats.name as grop_chat_name, message_text,
+                time_sent, read
+                FROM group_messages INNER JOIN group_chats ON group_messages.group_chat_id = group_chats.id
+                INNER JOIN group_memberships ON group_memberships.group_chat_id = group_chats.id
+                INNER JOIN users ON group_messages.sender_id = users.id
+                WHERE group_memberships.user_id = %(user_id)s AND group_messages.group_chat_id = %(group_chat_id)s
+                ORDER BY time_sent DESC
             """
 
             args = {'user_id': user_id, 'group_chat_id': group_chat_id}
@@ -65,9 +69,13 @@ class GroupMessages(Resource):
         text = args["text"]
 
         if user_id != None and group_chat_id != None and text != None:
+            user_id = int(user_id)
+            group_chat_id = int(group_chat_id)
+            text = str(text)
+
             sql_string = """
-            INSERT INTO group_messages(sender_id, group_chat_id, message_text) VALUES
-            (%(user_id)s, %(group_chat_id)s, %(message_text)s)
+                INSERT INTO group_messages(sender_id, group_chat_id, message_text) VALUES
+                (%(user_id)s, %(group_chat_id)s, %(message_text)s)
             """
             args = {'user_id': user_id, 'group_chat_id': group_chat_id, 'message_text': text}
 

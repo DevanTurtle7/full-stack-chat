@@ -1,9 +1,18 @@
+/**
+ * A chat window
+ * 
+ * PROPS:
+ *  current: A JSON object representing the chat that is currently being displayed.
+ *  refreshApp: A function that triggers the entire app to refresh. This function
+ *              is used by the send button to trigger a refresh after a new message
+ *              was succesfully sent.
+ * 
+ * @author Devan Kavalchek
+ */
 import { Component } from 'react';
 import { Col } from 'reactstrap';
 import Bubble from './Bubble';
 import ChatInput from './ChatInput';
-
-const API_URL = 'http://127.0.0.1:5000'
 
 class Chat extends Component {
     constructor(props) {
@@ -15,7 +24,10 @@ class Chat extends Component {
 
         this.userId = 1;
     }
-
+    
+    /**
+     * Gets all the messages of the chat from the API
+     */
     getMessages = () => {
         let current = this.props.current
 
@@ -24,13 +36,15 @@ class Chat extends Component {
             let id = current.id
             let route;
 
+            // Generate the route, depending on if the chat is a group chat or a direct message
             if (type === 'direct_message') {
                 route = `/direct_messages?user_id=${this.userId}&receiver_id=${id}`
             } else if (type === 'group_chat') {
                 route = `/group_messages?user_id=${this.userId}&group_chat_id=${id}`
             }
 
-            fetch(API_URL + route, {
+            // Make a call to the api to get the messages
+            fetch(route, {
                 method: 'GET',
             }).then(response => response.json())
                 .then(response => {
@@ -42,15 +56,20 @@ class Chat extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        // Get the messages anytime there is an update
         if (prevProps !== this.props) {
             this.getMessages()
         }
     }
 
     componentDidMount() {
+        // Get the messages the first time the object is created
         this.getMessages()
     }
 
+    /**
+     * Refreshes the entire app. Used by the send button
+     */
     refreshApp = () => {
         this.props.refreshApp(this.userId)
     }
@@ -60,15 +79,22 @@ class Chat extends Component {
         let numMessages = messages.length
         const bubbles = []
 
-        for (var i = numMessages - 1; i >= 0; i--) {
-            let message = messages[i]
+        // Dynamically render bubbles
+        for (var i = numMessages - 1; i >= 0; i--) { // Iterate backwords over the messages (oldest to newest)
+            let message = messages[i] // Get the current message
             let sender = message.sender_id
+            // Determine the props
+            let sent = sender === this.userId
+            let text = message.message_text
+            let first = i === (numMessages - 1) || messages[i + 1].sender_id !== sender
+            let last = i === 0 || messages[i - 1].sender_id !== sender
 
+            // Add a new bubble
             bubbles.push(<Bubble
-                sent={sender === this.userId}
-                text={message.message_text}
-                first={i === (numMessages - 1) || messages[i + 1].sender_id !== sender}
-                last={i === 0 || messages[i - 1].sender_id !== sender}
+                sent={sent}
+                text={text}
+                first={first}
+                last={last}
                 key={i}
             />)
         }

@@ -3,8 +3,6 @@ import { Row } from 'reactstrap';
 import SendButton from './SendButton';
 import MessageInput from './MessageInput';
 
-const API_URL = 'http://127.0.0.1:5000'
-
 class ChatInput extends Component {
     constructor(props) {
         super(props)
@@ -33,7 +31,7 @@ class ChatInput extends Component {
             body['group_chat_id'] = id
         }
 
-        fetch(API_URL + route, {
+        fetch(route, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)

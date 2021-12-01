@@ -28,15 +28,19 @@ class DirectMessages(Resource):
         limit = args["limit"]
 
         if user_id != None and receiver_id != None:
+            user_id = int(user_id)
+            receiver_id = int(receiver_id)
+            limit = int(limit)
+
             sql_string = """
-            SELECT sender_id, receiver_id, users.name as other_name, users.username as other_username,
-            message_text, time_sent, read
-            FROM direct_messages INNER JOIN users ON
-                (CASE WHEN %(user_id)s = sender_id THEN receiver_id
-                WHEN %(user_id)s = receiver_id THEN sender_id END)
-            = users.id
-            WHERE %(user_id)s in (sender_id, receiver_id) and %(receiver_id)s in (sender_id, receiver_id) 
-            ORDER BY time_sent DESC
+                SELECT sender_id, receiver_id, users.name as other_name, users.username as other_username,
+                message_text, time_sent, read
+                FROM direct_messages INNER JOIN users ON
+                    (CASE WHEN %(user_id)s = sender_id THEN receiver_id
+                    WHEN %(user_id)s = receiver_id THEN sender_id END)
+                = users.id
+                WHERE %(user_id)s in (sender_id, receiver_id) and %(receiver_id)s in (sender_id, receiver_id) 
+                ORDER BY time_sent DESC
             """
             args = {'user_id': user_id, 'receiver_id': receiver_id}
 
@@ -64,9 +68,13 @@ class DirectMessages(Resource):
         text = args["text"]
 
         if user_id != None and receiver_id != None and text != None:
+            user_id = int(user_id)
+            receiver_id = int(receiver_id)
+            text = str(text)
+
             sql_string = """
-            INSERT INTO direct_messages(sender_id, receiver_id, message_text) VALUES
-            (%(user_id)s, %(receiver_id)s, %(message_text)s)
+                INSERT INTO direct_messages(sender_id, receiver_id, message_text) VALUES
+                (%(user_id)s, %(receiver_id)s, %(message_text)s)
             """
             args = {'user_id': user_id, 'receiver_id': receiver_id, 'message_text': text}
 
