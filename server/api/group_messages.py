@@ -28,6 +28,10 @@ class GroupMessages(Resource):
         limit = args["limit"]
 
         if user_id != None and group_chat_id != None:
+            user_id = int(user_id)
+            group_chat_id = int(group_chat_id)
+            limit = int(limit)
+
             sql_string = """
             SELECT sender_id, users.name as sender_name, users.username as sender_username,
             group_messages.group_chat_id, group_chats.name as grop_chat_name, message_text,
@@ -65,6 +69,10 @@ class GroupMessages(Resource):
         text = args["text"]
 
         if user_id != None and group_chat_id != None and text != None:
+            user_id = int(user_id)
+            group_chat_id = int(group_chat_id)
+            text = str(text)
+
             sql_string = """
             INSERT INTO group_messages(sender_id, group_chat_id, message_text) VALUES
             (%(user_id)s, %(group_chat_id)s, %(message_text)s)

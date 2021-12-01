@@ -24,6 +24,8 @@ class Chats(Resource):
         user_id = args["user_id"]
 
         if user_id != None:
+            user_id = int(user_id)
+
             sql_string = """
                 SELECT 'direct_message' as type, chats.id, users.name, message_text, chats.time_sent
                 FROM (
