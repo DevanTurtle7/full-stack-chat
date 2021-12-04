@@ -1,4 +1,4 @@
-# fullstack-chat
+# full-stack-chat
 A full stack messaging app built with React, Flask and PostgreSQL
 
 ## Running the App
