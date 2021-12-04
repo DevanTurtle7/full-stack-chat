@@ -1,5 +1,6 @@
 # full-stack-chat
-A full stack messaging app built with React, Flask and PostgreSQL
+A full stack messaging app built with React, Flask and PostgreSQL.
+This project is for learning purposes, so it is not hosted a server. It can only be ran locally. The instructions on how to run the app are below.
 
 ## Running the App
 ### Database
