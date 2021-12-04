@@ -9,7 +9,7 @@
  * @author Devan Kavalchek
  */
 import { Component } from 'react';
-import { Col } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 
 class ChatButton extends Component {
     /**
@@ -22,7 +22,10 @@ class ChatButton extends Component {
     render() {
         return (
             <Col onClick={this.onClick} className="chat-button">
-                <p>{this.props.name}</p>
+                <Row>
+                    <p>{this.props.name}</p>
+                    <p>{this.props.lastSent}</p>
+                </Row>
                 <p>{this.props.lastMessage}</p>
             </Col>
         )
