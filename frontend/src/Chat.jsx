@@ -9,27 +9,21 @@
  * 
  * @author Devan Kavalchek
  */
-import { Component } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Col } from 'reactstrap';
 import Bubble from './Bubble';
 import ChatInput from './ChatInput';
 
-class Chat extends Component {
-    constructor(props) {
-        super(props)
+function Chat(props) {
+    const [messages, setMessages] = useState([])
+    const [current, setCurrent] = useState(null)
+    const userId = 1;
 
-        this.state = {
-            messages: []
-        }
-
-        this.userId = 1;
-    }
-    
     /**
      * Gets all the messages of the chat from the API
      */
-    getMessages = () => {
-        let current = this.props.current
+    const getMessages = useCallback(() => {
+        let current = props.current
 
         if (current !== null) {
             let type = current.type
@@ -38,9 +32,9 @@ class Chat extends Component {
 
             // Generate the route, depending on if the chat is a group chat or a direct message
             if (type === 'direct_message') {
-                route = `/direct_messages?user_id=${this.userId}&receiver_id=${id}`
+                route = `/direct_messages?user_id=${userId}&receiver_id=${id}`
             } else if (type === 'group_chat') {
-                route = `/group_messages?user_id=${this.userId}&group_chat_id=${id}`
+                route = `/group_messages?user_id=${userId}&group_chat_id=${id}`
             }
 
             // Make a call to the api to get the messages
@@ -48,35 +42,30 @@ class Chat extends Component {
                 method: 'GET',
             }).then(response => response.json())
                 .then(response => {
-                    this.setState({ messages: response })
+                    setMessages([...response])
                 });
         } else {
-            this.setState({ messages: [] })
+            setMessages([])
         }
-    }
+    }, [props, setMessages])
 
-    componentDidUpdate(prevProps) {
-        // Get the messages anytime there is an update
-        if (prevProps !== this.props) {
-            this.getMessages()
+    useEffect(() => {
+        if (props.current !== current) {
+            getMessages()
+            setCurrent(props.current)
+            console.log(1)
         }
-    }
-
-    componentDidMount() {
-        // Get the messages the first time the object is created
-        this.getMessages()
-    }
+    }, [setCurrent, current, getMessages, props])
 
     /**
      * Refreshes the entire app. Used by the send button
      */
-    refreshApp = () => {
-        this.props.refreshApp(this.userId)
+    const refreshApp = () => {
+        props.refreshApp(userId)
     }
 
-    render() {
-        let messages = this.state.messages
-        let numMessages = messages.length
+    const getBubbles = () => {
+        const numMessages = messages.length
         const bubbles = []
 
         // Dynamically render bubbles
@@ -84,7 +73,7 @@ class Chat extends Component {
             let message = messages[i] // Get the current message
             let sender = message.sender_id
             // Determine the props
-            let sent = sender === this.userId
+            let sent = sender === userId
             let text = message.message_text
             let first = i === (numMessages - 1) || messages[i + 1].sender_id !== sender
             let last = i === 0 || messages[i - 1].sender_id !== sender
@@ -99,16 +88,18 @@ class Chat extends Component {
             />)
         }
 
-        if (this.props.current === null) {
-            return (<Col sm={8} className="chat-window"></Col>)
-        } else {
-            return (
-                <Col sm={8} className="chat-window">
-                    {bubbles}
-                    <ChatInput current={this.props.current} refreshApp={this.refreshApp}/>
-                </Col>
-            )
-        }
+        return bubbles
+    }
+
+    if (props.current === null) {
+        return (<Col sm={8} className="chat-window"></Col>)
+    } else {
+        return (
+            <Col sm={8} className="chat-window">
+                {getBubbles()}
+                <ChatInput current={props.current} refreshApp={refreshApp} />
+            </Col>
+        )
     }
 }
 

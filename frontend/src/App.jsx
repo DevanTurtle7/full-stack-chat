@@ -2,15 +2,13 @@ import './App.css';
 import Chat from './Chat';
 import Sidebar from './Sidebar';
 import { Row, Container } from 'reactstrap';
-import { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const UPDATE_INTERVAL = 3000
 
 function App(props) {
-    const [open, setOpen] = useState(null)
     const [chats, setChats] = useState({})
     const [current, setCurrent] = useState(null)
-    const [messages, setMessages] = useState([])
     const [setUp, setSetUp] = useState(false)
 
     const userId = 1;
@@ -42,7 +40,7 @@ function App(props) {
                     newChats[current.name] = current
                 }
 
-                setChats(...[newChats])
+                setChats({...newChats})
                 setSetUp(true)
             });
     }
